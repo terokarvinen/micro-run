@@ -18,6 +18,8 @@ function init()
 	config.TryBindKey("F9", "command:makeupbg", true)	
 end
 
+-- ### F5 runit ###
+
 function runitCommand(bp) -- bp BufPane
 	-- save & run the file we're editing
 	-- choose run command according to filetype detected by micro
@@ -43,11 +45,54 @@ function runitCommand(bp) -- bp BufPane
 	shell.RunInteractiveShell(cmd, true, false)		
 end
 
+-- ### F12 makeup ###
+
+function makeupCommand(bp)
+	-- run make in this or any higher directory, show output
+	bp:Save()
+	makeupWrapper(false)
+end
+
+-- ### F9 makeupbg ###
+
+function makeupbgCommand(bp)
+	-- run make in this or higher directory, in the background, hide most output
+	bp:Save()
+	makeupWrapper(true)	
+end
+
 function makeJobExit(out, args)
 	-- makeJobExit is a callback function, called when shell.JobStart() has done running 'make'
 	local out = string.sub(out, -79)
 	out = string.gsub(out, "\n", " ")
 	micro.InfoBar():Message("'make' done: ...", out)
+end
+
+-- ### both F9 makeupbg and F12 makeup ###
+
+function makeupWrapper(bg)
+	-- makeupWrapper returns us to original working directory after running make
+	-- This must be used, because ctrl-S saving saves the current file in working directory
+	-- If bg is true, run 'make' in the background
+	micro.InfoBar():Message("makeup called")
+
+	-- pwd
+	local pwd, err = os.Getwd()
+	if err ~= nil then
+		micro.InfoBar():Message("Error: os.Getwd() failed!")
+		return
+	end
+	micro.InfoBar():Message("Working directory is ", pwd)
+	local startDir = pwd
+
+	makeup(bg)
+
+	-- finally, back to the directory where we were
+	local err = os.Chdir(startDir)
+	if err ~= nil then
+		micro.InfoBar():Message("Error: os.Chdir() failed!")
+		return
+	end
 end
 
 function makeup(bg)
@@ -106,39 +151,3 @@ function makeup(bg)
 
 end	
 
-function makeupWrapper(bg)
-	-- makeupWrapper returns us to original working directory after running make
-	-- This must be used, because ctrl-S saving saves the current file in working directory
-	-- If bg is true, run 'make' in the background
-	micro.InfoBar():Message("makeup called")
-
-	-- pwd
-	local pwd, err = os.Getwd()
-	if err ~= nil then
-		micro.InfoBar():Message("Error: os.Getwd() failed!")
-		return
-	end
-	micro.InfoBar():Message("Working directory is ", pwd)
-	local startDir = pwd
-
-	makeup(bg)
-
-	-- finally, back to the directory where we were
-	local err = os.Chdir(startDir)
-	if err ~= nil then
-		micro.InfoBar():Message("Error: os.Chdir() failed!")
-		return
-	end
-end
-
-function makeupCommand(bp)
-	-- run make in this or any higher directory, show output
-	bp:Save()
-	makeupWrapper(false)
-end
-
-function makeupbgCommand(bp)
-	-- run make in this or higher directory, in the background, hide most output
-	bp:Save()
-	makeupWrapper(true)	
-end
