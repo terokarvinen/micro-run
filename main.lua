@@ -115,14 +115,14 @@ function makeup(bg)
 		end
 		micro.InfoBar():Message("Working directory is ", pwd)
 
-		-- are we at root directory
+		-- are we at root directory?
 		if pwd == prevdir then
 			micro.InfoBar():Message("Makefile not found, looked at ", i, " directories.")
 			return
 		end
 		prevdir = pwd
 
-		-- check for file
+		-- check for file, run make
 		local dummy, err = os.Stat("Makefile")
 		if err ~= nil then
 			micro.InfoBar():Message("(not found in ", pwd, ")")
