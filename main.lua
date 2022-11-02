@@ -52,6 +52,7 @@ end
 
 function makeup(bg)
 	-- Go up directories until a Makefile is found and run 'make'. 
+	-- 'bg' means run in background, hiding most 'make' output. 
 	
 	-- Caller is responsible for returning to original working directory.
 	-- Important, because micro will save the current file into the directory where 
