@@ -6,6 +6,7 @@
   "Versions": [
     {
       "Version": "0.0.4",
+      "Url": "https://github.com/terokarvinen/micro-run/archive/v0.0.4.zip",
       "Require": {
         "micro": ">=2.0.0"
       }
