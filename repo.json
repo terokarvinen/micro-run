@@ -1,0 +1,14 @@
+[{
+  "Name": "runit",
+  "Description": "Press F5 to save and run the current file. Python, Go, Lua, executable file.",
+  "Website": "https://github.com/terokarvinen/micro-run",
+  "Tags": ["run", "execute", "Go", "Python", "Bash", "Lua", "F5"],
+  "Versions": [
+    {
+      "Version": "0.0.4",
+      "Require": {
+        "micro": ">=2.0.0"
+      }
+    }
+  ]
+}]
