@@ -70,7 +70,7 @@ function makeup(bg)
 		end
 		micro.InfoBar():Message("Working directory is ", pwd)
 
-		-- are we at root
+		-- are we at root directory
 		if pwd == prevdir then
 			micro.InfoBar():Message("Makefile not found, looked at ", i, " directories.")
 			return
@@ -107,8 +107,8 @@ end
 
 function makeupWrapper(bg)
 	-- makeupWrapper returns us to original working directory after running make
-	-- this must be used, because ctrl-S saving saves the current file in working directory
-	-- if bg is true, run 'make' in the background
+	-- This must be used, because ctrl-S saving saves the current file in working directory
+	-- If bg is true, run 'make' in the background using JobStart()
 	micro.InfoBar():Message("makeup called")
 
 	-- pwd
