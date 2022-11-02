@@ -43,6 +43,12 @@ function runitCommand(bp) -- bp BufPane
 		shell.RunInteractiveShell(cmd, true, false)		
 end
 
+function makeJobExit(out, args)
+	local out = string.sub(out, -79)
+	out = string.gsub(out, "\n", " ")
+	micro.InfoBar():Message("'make' done: ...", out)
+end
+
 function makeup(bg)
 	-- Go up directories until a Makefile is found and run 'make'. 
 	
@@ -75,12 +81,11 @@ function makeup(bg)
 		if err ~= nil then
 			micro.InfoBar():Message("(not found in ", pwd, ")")
 		else
-			micro.InfoBar():Message("Running make, found Makefile in ", pwd)
 			if bg then
-				local outfunc, err = shell.RunBackgroundShell("make")
-				-- local out = string.sub(outfunc(), -60) -- this will block, can't edit when blocking
-				-- micro.InfoBar():Message("'make' done: ", out)
+				micro.InfoBar():Message("Background running make, found Makefile in ", pwd)
+				shell.JobStart("make", nil, nil, makeJobExit, nil)
 			else
+				micro.InfoBar():Message("Running make, found Makefile in ", pwd)
 				local out, err = shell.RunInteractiveShell("make", true, true)
 			end
 			return

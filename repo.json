@@ -5,6 +5,13 @@
   "Tags": ["run", "execute", "Go", "Python", "Bash", "Lua", "F5"],
   "Versions": [
     {
+      "Version": "0.0.7",
+      "Url": "https://github.com/terokarvinen/micro-run/archive/v0.0.7.zip",
+      "Require": {
+        "micro": ">=2.0.0"
+      }
+    },
+    {
       "Version": "0.0.6",
       "Url": "https://github.com/terokarvinen/micro-run/archive/v0.0.6.zip",
       "Require": {
