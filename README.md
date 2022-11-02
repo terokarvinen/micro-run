@@ -1,8 +1,10 @@
 # micro-run
 
-*Press F5 to save and run the current file, F12 to make*
+*Press F5 to save and run the current file, F12 to make, F9 to make in background*
 
 F12 compiles your project even if Makefile is in a higher directory. It goes up (cd ..) until it finds make file or is at root directory. 
+
+F9 runs 'make' in background, allowing you to keep editing while your project compiles. 
 
 ![micro-run screenshot - press F5 to run current file](micro-run.png)
 
