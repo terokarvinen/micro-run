@@ -82,9 +82,10 @@ function makeup(bg)
 		else
 			if bg then
 				micro.InfoBar():Message("Background running make, found Makefile in ", pwd)
-				shell.JobStart("make", nil, nil, makeJobExit, nil)
+				shell.JobStart("cd "..pwd.."; make", nil, nil, makeJobExit, nil)
 			else
 				micro.InfoBar():Message("Running make, found Makefile in ", pwd)
+				-- RunInteractiveShell() uses the current working directory
 				local out, err = shell.RunInteractiveShell("make", true, true)
 			end
 			return
