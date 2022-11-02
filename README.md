@@ -2,7 +2,7 @@
 
 *Press F5 to save and run the current file.*
 
-
+![micro-run screenshot - press F5 to run current file](micro-run.png)
 
 Micro run is a plugin for Micro editor.
 
