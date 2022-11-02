@@ -53,12 +53,10 @@ end
 function makeup(bg)
 	-- Go up directories until a Makefile is found and run 'make'. 
 	
-	-- Caller is responsible for returning to original working directory,
-	-- and micro will save the current file into the directory where 
-	-- we are in. In this plugin, makeupCommand() implements returning 
-	-- to original directory
-
-	micro.Log("bg: ", bg)
+	-- Caller is responsible for returning to original working directory.
+	-- Important, because micro will save the current file into the directory where 
+	-- we are in. In this plugin, makeupWrapper() implements returning 
+	-- to original directory. 
 
 	local err, pwd, prevdir
 	for i = 1,20 do -- arbitrary number to make sure we exit one day
@@ -108,7 +106,7 @@ end
 function makeupWrapper(bg)
 	-- makeupWrapper returns us to original working directory after running make
 	-- This must be used, because ctrl-S saving saves the current file in working directory
-	-- If bg is true, run 'make' in the background using JobStart()
+	-- If bg is true, run 'make' in the background
 	micro.InfoBar():Message("makeup called")
 
 	-- pwd
