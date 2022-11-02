@@ -62,7 +62,7 @@ function makeupbgCommand(bp)
 end
 
 function makeJobExit(out, args)
-	-- makeJobExit is a callback function, called when shell.JobStart() has done running 'make'
+	-- makeJobExit is a callback function, called when shell.JobStart() is done running 'make'
 	local out = string.sub(out, -79)
 	out = string.gsub(out, "\n", " ")
 	micro.InfoBar():Message("'make' done: ...", out)
