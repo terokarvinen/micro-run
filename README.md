@@ -1,12 +1,14 @@
 # micro-run
 
-*Press F5 to save and run the current file.*
+*Press F5 to save and run the current file, F12 to make*
+
+F12 compiles your project even if Makefile is in a higher directory. It goes up (cd ..) until it finds make file or is at root directory. 
 
 ![micro-run screenshot - press F5 to run current file](micro-run.png)
 
 Micro run is a plugin for Micro editor.
 
-Supports Go, Go test, Python 3, Lua and executable files. 
+F5 save & run supports Go, Go test, Python 3, Lua and executable files. 
 
 As an extra feature, micro-run can run any script that's marked as executable - in any language. In Linux, executable files are those that have 'chmod u+x foo' set and usually start with a shebang "#!/usr/bin/foo". 
 
