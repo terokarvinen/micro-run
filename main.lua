@@ -19,28 +19,28 @@ function init()
 end
 
 function runitCommand(bp) -- bp BufPane
-		-- save & run the file we're editing
-		-- choose run command according to filetype detected by micro
-		bp:Save()
+	-- save & run the file we're editing
+	-- choose run command according to filetype detected by micro
+	bp:Save()
 
-		local filename = bp.Buf.GetName(bp.Buf)
-		local filetype = bp.Buf:FileType()
-		local cmd = string.format("./%s", filename) -- does not support spaces in filename
-		if filetype == "go" then
-			if string.match(filename, "_test.go$") then
-				cmd = "go test"
-			else
-				cmd = string.format("go run '%s'", filename)
-			end
-		elseif filetype == "python" then
-			cmd = string.format("python3 '%s'", filename)
-		elseif filetype == "html" then
-			cmd = string.format("firefox-esr '%s'", filename)
-		elseif filetype == "lua" then
-			cmd = string.format("lua '%s'", filename)
+	local filename = bp.Buf.GetName(bp.Buf)
+	local filetype = bp.Buf:FileType()
+	local cmd = string.format("./%s", filename) -- does not support spaces in filename
+	if filetype == "go" then
+		if string.match(filename, "_test.go$") then
+			cmd = "go test"
+		else
+			cmd = string.format("go run '%s'", filename)
 		end
+	elseif filetype == "python" then
+		cmd = string.format("python3 '%s'", filename)
+	elseif filetype == "html" then
+		cmd = string.format("firefox-esr '%s'", filename)
+	elseif filetype == "lua" then
+		cmd = string.format("lua '%s'", filename)
+	end
 
-		shell.RunInteractiveShell(cmd, true, false)		
+	shell.RunInteractiveShell(cmd, true, false)		
 end
 
 function makeJobExit(out, args)
