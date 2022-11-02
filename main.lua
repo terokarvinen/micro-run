@@ -85,6 +85,7 @@ function makeupWrapper(bg)
 	micro.InfoBar():Message("Working directory is ", pwd)
 	local startDir = pwd
 
+	-- make
 	makeup(bg)
 
 	-- finally, back to the directory where we were
