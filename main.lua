@@ -42,6 +42,7 @@ function runitCommand(bp) -- bp BufPane
 		cmd = string.format("lua '%s'", filename)
 	end
 
+	shell.RunInteractiveShell("clear", false, false)
 	shell.RunInteractiveShell(cmd, true, false)		
 end
 
@@ -134,6 +135,7 @@ function makeup(bg)
 			else
 				micro.InfoBar():Message("Running make, found Makefile in ", pwd)
 				-- RunInteractiveShell() uses the current working directory
+				shell.RunInteractiveShell("clear", false, false)
 				local out, err = shell.RunInteractiveShell("make", true, true)
 			end
 			return
