@@ -57,6 +57,34 @@ function runitCommand(bp) -- bp BufPane
 		return -- early exit
 	end
 
+	if filetype == "rust" then -- filetype can be different from suffix
+		-- Rust rs is handled like C.
+		shell.RunInteractiveShell("clear", false, false)
+
+		-- we must create the temporary file here 
+		-- so that local attacker can't create a hostile one beforehand		
+		-- RunInteractiveShell(input string, wait bool, getOutput bool) (string, error)
+		cmd = string.format("mktemp '/tmp/micro-run-binary-XXXXXXXXXXX'", filename)
+		tmpfile, err = shell.RunInteractiveShell(cmd, false, true)
+		-- TODO: error handling
+
+		shell.RunInteractiveShell("echo", false, false)
+		
+		-- compile to temporary file with unique(ish) tmp file name
+		cmd = string.format("rustc '%s' -o '%s'", filename, tmpfile)
+		shell.RunInteractiveShell(cmd, false, false)
+
+		-- run temporary file
+		cmd = string.format("'%s'", tmpfile)
+		shell.RunInteractiveShell(cmd, false, false)
+
+		-- remove temp file
+		cmd = string.format("rm '%s'", tmpfile)
+		shell.RunInteractiveShell(cmd, true, false)
+
+		return -- early exit
+	end
+
 
 	local cmd = string.format("./%s", filename) -- does not support spaces in filename
 	if filetype == "go" then
