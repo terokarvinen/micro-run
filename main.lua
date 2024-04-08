@@ -9,13 +9,13 @@ local os = import("os")
 
 function init()
 	config.MakeCommand("runit", runitCommand, config.NoComplete)
-	config.TryBindKey("F5", "command:runit", true)
+	config.TryBindKey("F5", "command:runit", false)
 
 	config.MakeCommand("makeup", makeupCommand, config.NoComplete)
-	config.TryBindKey("F12", "command:makeup", true)
+	config.TryBindKey("F12", "command:makeup", false)
 
 	config.MakeCommand("makeupbg", makeupbgCommand, config.NoComplete)
-	config.TryBindKey("F9", "command:makeupbg", true)
+	config.TryBindKey("F9", "command:makeupbg", false)
 end
 
 -- ### F5 runit ###
