@@ -14,6 +14,8 @@ F5 save & run supports Go, Go test, Python 3, Lua and executable files.
 
 As an extra feature, micro-run can run any script that's marked as executable - in any language. In Linux, executable files are those that have 'chmod u+x foo' set and usually start with a shebang "#!/usr/bin/foo". 
 
+Micro-run is now part of official micro plugin channel. 
+
 ## Use Case
 
 When coding, it's convenient to run the current file and see the result immediately. Especially for Go (Golang) and other languages that don't have an interactive shell (REPL), it's nice to quickly test new features by writing a short program and hitting F5. 
