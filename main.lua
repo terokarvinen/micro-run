@@ -16,6 +16,17 @@ function init()
 
 	config.MakeCommand("makeupbg", makeupbgCommand, config.NoComplete)
 	config.TryBindKey("F9", "command:makeupbg", true)	
+
+end
+
+function exists(path)
+    local file = io.open(path,"r")
+    if (file ~= nil) then
+        io.close(file)
+        return true
+    else
+        return false
+    end
 end
 
 -- ### F5 runit ###
@@ -24,7 +35,7 @@ function runitCommand(bp) -- bp BufPane
 	-- save & run the file we're editing
 	-- choose run command according to filetype detected by micro
 	bp:Save()
-
+	
 	local filename = bp.Buf.GetName(bp.Buf)
 	local filetype = bp.Buf:FileType()
 
@@ -94,7 +105,12 @@ function runitCommand(bp) -- bp BufPane
 			cmd = string.format("go run '%s'", filename)
 		end
 	elseif filetype == "python" then
-		cmd = string.format("python3 '%s'", filename)
+		venv = exists(".venv/bin/python3")
+		if venv == true then
+			cmd = string.format(".venv/bin/python3 '%s'", filename)
+		elseif venv == false then
+			cmd = string.format("python3 '%s'", filename)
+		end
 	elseif filetype == "html" then
 		cmd = string.format("firefox-esr '%s'", filename)
 	elseif filetype == "lua" then
